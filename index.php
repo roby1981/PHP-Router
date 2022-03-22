@@ -17,21 +17,21 @@ $http_404 = function(){
 $routes=[];
 
 $routes['/']=$index;
-$routes['login']=$login;
+$routes['/login']=$login;
 
 foreach($routes as $route => $action)
 {
     $regex="~^$route/?$~i";
-    echo $request_url." - ".$regex."<br>";
     if(!preg_match($regex, $request_url))
     {
-        echo "Passt nicht.";
         continue;
     }
+
     if(!is_callable($action))
     {
         return call_user_func($http_404);
     }
+
     return call_user_func($action);
 }
 return call_user_func($http_404);
